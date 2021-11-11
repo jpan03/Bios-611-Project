@@ -18,14 +18,10 @@ Build the docker image by using following:
 **Step 1:**
 To run RStudio, enter the following command:
 
-    docker run \
-	    -p 8787:8787 \
-	    -p 8080:8080 \
-	    -e PASSWORD=123456 \
-	    -v "$(pwd)":/home/rstudio \
-	    -it jpan03
+docker run -p 8787:8787 -p 8080:8080 -e PASSWORD=123456 -v ${pwd}:/home/rstudio -it jpan03
 
-After you connected it, then open Browser, and navigate to http://localhost:8788/.
+
+After you connected it, then open Browser, and navigate to http://localhost:8787/.
 
 # Shiny App
 To run Shiny app, you could explore more information about this data.
