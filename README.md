@@ -32,13 +32,9 @@ To run Shiny app, you could explore more information about this data.
 
 **Step 1:**
 
-    docker run \
-	    -p 8787:8787 \
-	    -p 8080:8080 \
-	    -e PASSWORD=123456 \
-	    -v "$(pwd)":/home/rstudio \
-	    -it jpan03 sudo -H -u rstudio\
-	    /bin/bash -c "cd ~/scripts; Rscript shiny.R"
+
+    docker run -p 8787:8787 -p 8080:8080 -e PASSWORD=123456 -v ${pwd}:/home/rstudio -it jpan03
+
 **Step 2:**
 Navigating to your terminal within rstudio and type the following:
 
