@@ -1,4 +1,4 @@
-FROM　rocker/verse
+FROM rocker/verse
 MAINTAINER Jiaqing Pan <jqp@unc.edu>
 RUN apt update && apt-get -y update && apt-get install -y  libudunits2-dev libgdal-dev libgeos-dev libproj-dev
 RUN R -e "install.packages(\"tidyverse\")"
@@ -25,3 +25,4 @@ RUN R -e "install.packages(\"lubridate\")"
 RUN R -e "install.packages(\"plotly\")"
 RUN R -e "install.packages(\"ggalt\")"
 RUN R -e "install.packages(\"leaflet\")"
+RUN R -e "install.packages(\"tinytex\"); tinytex::install_tinytex(dir=\"/opt/tinytex\");"
