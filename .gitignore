@@ -1,0 +1,74 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# User-specific files
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# R Environment Variables
+.Renviron
+
+# pkgdown site
+docs/
+
+# translation temp files
+po/*~
+
+# figures
+figures/*
+
+# local and config files
+.local/*
+.config/*
+
+# derived data
+derived_data/*
+
+# Figure
+Time/*
+Pressure/*
+humidity/*
+111/*
+
+# bash history
+.bash_history
+
+Bios-611-project - Shortcut.lnk
+*.lnk
+*.png
+111.rar
+1102-shiny-weather.rar
+derived_data/Local_Air_Quality_Cleaned.csv
+sqlite-tools-win32-x86-3360000/track_metadata.db
+derived_data/Local_Air_Quality_Cleaned.csv
+derived_data/Local_Air_Quality_Cleaned.csv
