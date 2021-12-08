@@ -28,3 +28,9 @@ RUN R -e "install.packages(\"leaflet\")"
 RUN R -e "install.packages(\"tinytex\"); tinytex::install_tinytex(dir=\"/opt/tinytex\");"
 RUN apt update -y && apt install -y python3-pip
 RUN pip3 install jupyter jupyterlab
+RUN pip3 install pandas
+RUN pip3 install seaborn
+RUN pip3 install datetime
+RUN pip3 install folium
+RUN pip3 install matplotlib
+RUN pip3 install numpy

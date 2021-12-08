@@ -33,11 +33,12 @@ To run Shiny app, you could explore more information about this data.
 **Step 2:**
 Navigating to your terminal within rstudio and type the following:
 
-    cd scripts; Rscript shiny.R
+    make shiny
 Then, you could access your http://localhost:8080/ on your browser
 
 # Makefile 
-The Makefile is for build all components of project by running following code in the Rstudio terminal.
+The Makefile is for build all components of project by running following code in the Jupyter terminal.
+Click "+" under file, then click the "Terminal".
 
     make report.html 
 

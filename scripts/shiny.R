@@ -5,8 +5,9 @@ library(lubridate)
 library(plotly)
 library(ggalt)
 library(leaflet)
-#setwd("C:\Users\jpan0\OneDrive\Documents\GitHub\Bios-611-project\derived_data\Local_Air_Quality_Cleaned.csv.\\")
-weather <- read_csv("Local_Air_Quality_Cleaned.csv")[c(-1,-2),]
+library(stringr)
+
+weather <- read_csv("scripts/Local_Air_Quality_Cleaned.csv")[c(-1,-2),]
 weather$Last_Check <- gsub("\\+00","",weather$Last_Check)
 weather$Last_Check <- ymd_hms(weather$Last_Check)
 weather$ydm <- floor_date(weather$Last_Check,"day" )
@@ -21,7 +22,8 @@ ui = bootstrapPage(fluidPage(
   sidebarLayout(
     sidebarPanel(
     selectInput("year", "Year", choices = c(2018,2019)),
-    selectInput("month", "Month", choices = c(1:12)),
+    selectInput("month", "Month", choices = c(201810,201811,201812,201901,201902,201903,
+                                              201904,201905,201906,201907,201908,201909,201910,201911)),
     selectInput("day", "Day", choices = c(1:31)),
     
     
@@ -44,11 +46,11 @@ ui = bootstrapPage(fluidPage(
 server <- function(input, output){
  
    output$plot1 <- renderPlotly({
-
+   tm <- as.numeric(str_sub(input$month, start= -2))
     
     weather%>%
       filter(year==input$year)%>%
-      filter(month==input$month)%>%
+      filter(month==tm)%>%
       ggplot(aes(x=Last_Check,y=PM_2_5_10_Minute_Avg))+
       geom_line(color="4")+
        xlab("Last Check") +   
@@ -58,11 +60,11 @@ server <- function(input, output){
   })
   
   output$plot2 <- renderPlotly({
-
+    tm <- as.numeric(str_sub(input$month, start= -2))
 
     weather%>%
       filter(year==input$year)%>%
-      filter(month==input$month)%>%
+      filter(month==tm)%>%
       ggplot(aes(x=Last_Check,y=PM_2_5_30_Minute_Avg))+
       geom_line(color="5")+
       xlab("Last Check") +   
@@ -72,11 +74,11 @@ server <- function(input, output){
     
   })
   output$plot3 <- renderPlotly({
-
+    tm <- as.numeric(str_sub(input$month, start= -2))
       
     weather%>%
       filter(year==input$year)%>%
-      filter(month==input$month)%>%
+      filter(month==tm)%>%
       ggplot(aes(x=Last_Check,y=PM_2_5_1_Hour_Avg))+
       geom_line(color="5")+
       xlab("Last Check") +   
@@ -87,11 +89,11 @@ server <- function(input, output){
     })
   
   output$plot4 <- renderPlotly({
-
+    tm <- as.numeric(str_sub(input$month, start= -2))
     
     weather%>%
       filter(year==input$year)%>%
-      filter(month==input$month)%>%
+      filter(month==tm)%>%
       ggplot(aes(x=Last_Check,y=PM_2_5_6_Hour_Avg))+
       geom_line(color="5")+
       xlab("Last Check") +   
@@ -102,11 +104,11 @@ server <- function(input, output){
  
   
   output$plot5 <- renderPlotly({
-    
+    tm <- as.numeric(str_sub(input$month, start= -2))
     
     weather%>%
       filter(year==input$year)%>%
-      filter(month==input$month)%>%
+      filter(month==tm)%>%
       ggplot(aes(x=Last_Check,y=PM_2_5_24_Hour_Avg))+
       geom_line(color="5")+
       xlab("Last Check") +   
@@ -117,11 +119,11 @@ server <- function(input, output){
   
   
   output$plot6 <- renderPlotly({
-    
+    tm <- as.numeric(str_sub(input$month, start= -2))
     
     weather%>%
       filter(year==input$year)%>%
-      filter(month==input$month)%>%
+      filter(month==tm)%>%
       ggplot(aes(x=Last_Check,y=PM_2_5_One_Week_Avg))+
       geom_line(color="5")+
       xlab("Last Check") +   
@@ -131,11 +133,11 @@ server <- function(input, output){
   })
   
   output$plot8 <- renderPlotly({
-    
+    tm <- as.numeric(str_sub(input$month, start= -2))
     
     weather%>%
       filter(year==input$year)%>%
-      filter(month==input$month)%>%
+      filter(month==tm)%>%
       select(Last_Check,PM_2_5_One_Week_Avg,Temp__F,Humidity,Pressure__mbar)%>%
       mutate(Pressure__mbar=Pressure__mbar/40)%>%
       tidyr::gather(type,value,-Last_Check)%>%
@@ -151,8 +153,9 @@ server <- function(input, output){
   
 
   output$distPlot <- renderLeaflet({
+    tm <- as.numeric(str_sub(input$month, start= -2))
 a <- weather%>%
-      filter(ydm==as.Date(paste(input$year,"-",input$month,"-",input$day,sep = ""),"%Y-%m-%d"))
+      filter(ydm==as.Date(paste(input$year,"-",tm,"-",input$day,sep = ""),"%Y-%m-%d"))
 
     leaflet() %>% addTiles() %>%
       addMarkers(lng = a$Longitude, lat = a$Latitude, popup = paste(a$Site_Label,":",a$PM_2_5_30_Minute_Avg,sep = ""))  
@@ -162,6 +165,5 @@ a <- weather%>%
   })
 }
 
-shinyApp(ui,server,options=list(host="0.0.0.0",port=8080))
-
+shinyApp(ui,server, options=list(port=8080, host="0.0.0.0"))
 
